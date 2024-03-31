@@ -23,6 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.mycatpal.features.presentation.screens.Auth.LoginInScreen
 import com.example.mycatpal.features.presentation.screens.Auth.SignUpScreen
 import com.example.mycatpal.features.presentation.screens.MainScreen
+import com.example.mycatpal.features.presentation.screens.MyCats.MyCatsScreen
 import com.example.mycatpal.features.presentation.viewmodels.UserViewModel
 import com.example.mycatpal.ui.theme.MyCatPalTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,7 +53,7 @@ class MainActivity : ComponentActivity() {
                 }
 
                 val email = userData?.email.toString()
-                Log.d("emailD","data: $email")
+                Log.d("emailD","data")
 
                 NavHost(navController = navController, startDestination = startDest) {
                     composable("SignUpScreen"){
@@ -63,8 +64,12 @@ class MainActivity : ComponentActivity() {
                         LoginInScreen(navController = navController)
                     }
 
-                    composable("MainScreen"){
-                        MainScreen(email = email)
+                    composable("MainScreen") {
+                        MainScreen(email = email, navController = navController)
+                    }
+                    
+                    composable("MyCatsScreen"){
+                        MyCatsScreen(email, navController)
                     }
                 }
 

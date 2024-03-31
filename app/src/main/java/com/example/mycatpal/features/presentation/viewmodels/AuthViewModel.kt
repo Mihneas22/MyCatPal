@@ -42,4 +42,9 @@ class AuthViewModel @Inject constructor(
         loginInResponse = Resource.Loading
         loginInResponse = repo.loginInUser(email, password)
     }
+
+    fun logOut()
+    =viewModelScope.launch {
+        repo.logOut()
+    }
 }

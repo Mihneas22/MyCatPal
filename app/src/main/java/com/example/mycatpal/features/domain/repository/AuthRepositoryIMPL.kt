@@ -47,8 +47,18 @@ class AuthRepositoryIMPL @Inject constructor(
         user["user_email"] = email
         user["user_password"] = password
         user["user_name"] = username
-
         db.set(user)
+
+        val cb = fb.collection("users").document(email).collection("cats").document("nullCat")
+        val newCat = mutableMapOf<String,Any>()
+        newCat["cat_name"] = ""
+        newCat["cat_age"] = 0
+        newCat["cat_gender"] = ""
+        newCat["cat_breed"] = ""
+        newCat["cat_birthday"] = ""
+        newCat["cat_image"] = ""
+
+        cb.set(newCat)
         Resource.Success(true)
     }catch (ex: Exception){
         Resource.Failure(ex)
