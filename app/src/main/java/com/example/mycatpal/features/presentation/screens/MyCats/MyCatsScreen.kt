@@ -55,7 +55,7 @@ fun MyCatsScreen(
     Log.d("catLog","data: $listCats")
     Column {
         Header()
-        MainCatsScreen(listCats = listCats)
+        MainCatsScreen(listCats = listCats,navController = navController)
         BottomBar(navController = navController)
     }
 }
@@ -107,10 +107,11 @@ fun Header(){
 @Composable
 fun MainCatsScreen(
     listCats: List<Cat>,
+    navController: NavController
 ){
     Card(modifier = Modifier
         .fillMaxWidth()
-        .height(700.dp),
+        .height(710.dp),
         shape = RectangleShape,
         colors = CardDefaults.cardColors(
             containerColor = darkPurple
@@ -142,7 +143,7 @@ fun MainCatsScreen(
                     .padding(end = 30.dp, bottom = 30.dp),
                 text = "+",
                 onButClick = {
-
+                    navController.navigate("AddCatScreen");
                 },
                 color = Color.Blue,
                 textColor = Color.White
