@@ -1,5 +1,6 @@
 package com.example.mycatpal.features.presentation.screens.Auth
 
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,9 +12,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Android
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,6 +34,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.mycatpal.features.domain.components.Resource
 import com.example.mycatpal.features.presentation.components.CatButton
+import com.example.mycatpal.features.presentation.components.CatPasswordTextField
 import com.example.mycatpal.features.presentation.components.CatTextField
 import com.example.mycatpal.features.presentation.viewmodels.AuthViewModel
 import com.example.mycatpal.ui.theme.darkPurple
@@ -51,6 +56,9 @@ fun LoginInScreen(
     }
 
 
+    var visualState by remember {
+        mutableStateOf(false)
+    }
     val context = LocalContext.current
 
     Card(modifier = Modifier
@@ -126,7 +134,7 @@ fun LoginInScreen(
                     color = lighterRed
                 )
 
-                CatTextField(
+                CatPasswordTextField(
                     modifier = Modifier
                         .padding(start = 15.dp, end = 15.dp)
                         .fillMaxWidth(),
@@ -137,7 +145,18 @@ fun LoginInScreen(
                             })password = it
                     }, label = "",
                     color = lighterPurple,
-                    textColor = lighterRed
+                    textColor = lighterRed,
+                    visualState = visualState,
+                    icon = {
+                        val image = if(visualState)
+                            Icons.Filled.Visibility
+                        else
+                            Icons.Filled.VisibilityOff
+
+                        IconButton(onClick = { visualState = !visualState }) {
+                            Icon(imageVector = image, contentDescription = "Visibility")
+                        }
+                    }
                 )
             }
 
@@ -160,10 +179,15 @@ fun LoginInScreen(
                             Toast.makeText(context,"Enter a password with more than 8 letters",
                                 Toast.LENGTH_SHORT).show()
                         else {
-                            loginInViewModel.loginInUser(email, password)
-                            if(loginInViewModel.loginInResponse == Resource.Success(true))
-                            {
-                                navController.navigate("MainScreen")
+                            when(val loginInResult = loginInViewModel.loginInResponse){
+                                is Resource.Loading -> ProgressBar(context)
+                                is Resource.Success ->{
+                                    loginInViewModel.loginInUser(email, password)
+                                    navController.navigate("MainScreen")
+                                }
+                                is Resource.Failure -> loginInResult.apply {
+                                    Toast.makeText(context,"Error: $message",Toast.LENGTH_SHORT).show()
+                                }
                             }
                         }
 
