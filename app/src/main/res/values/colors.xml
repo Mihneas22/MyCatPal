@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name = "darkPurple">#FF1D1A39</color>
+    <color name = "lighterPurple">#FF451952</color>
+    <color name="darkerRed">#FF662549</color>
+    <color name="lighterRed">#FFAE445A</color>
+    <color name="myYellow">#FFF39F5A</color>
+    <color name="mySkinColor">#FFE8BCB9</color>
 </resources>

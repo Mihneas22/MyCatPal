@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "483931539845",
+    "project_id": "mycatpalapp",
+    "storage_bucket": "mycatpalapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483931539845:android:b841641015c88e3f37dcec",
+        "android_client_info": {
+          "package_name": "com.example.mycatpal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASobrX9XKDDDEkwrFkfRg-uWlM45C8XAg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
