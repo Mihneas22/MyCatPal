@@ -117,8 +117,7 @@ fun MainCatsScreen(
         )
     ){
         Card(modifier = Modifier
-            .height(600.dp)
-            .verticalScroll(rememberScrollState()),
+            .height(600.dp),
             colors = CardDefaults.cardColors(
                 containerColor = darkPurple
             )
