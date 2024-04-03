@@ -47,7 +47,7 @@ import com.example.mycatpal.ui.theme.myYellow
 @Composable
 fun LoginInScreen(
     navController: NavController,
-    loginInViewModel: AuthViewModel = hiltViewModel()
+    loginInViewModel: AuthViewModel = hiltViewModel(),
 ) {
     var email by remember{
         mutableStateOf("")

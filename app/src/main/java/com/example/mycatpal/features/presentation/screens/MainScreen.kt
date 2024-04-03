@@ -1,5 +1,6 @@
 package com.example.mycatpal.features.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,19 +32,42 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.mycatpal.features.domain.model.RealmModels.TrackedUser
 import com.example.mycatpal.features.presentation.components.BottomBar
 import com.example.mycatpal.features.presentation.viewmodels.AuthViewModel
+import com.example.mycatpal.features.presentation.viewmodels.CatViewModel
+import com.example.mycatpal.features.presentation.viewmodels.TrackedUserViewModel
 import com.example.mycatpal.features.presentation.viewmodels.UserManipulationViewModel
 import com.example.mycatpal.ui.theme.darkPurple
 import com.example.mycatpal.ui.theme.lighterPurple
 import com.example.mycatpal.ui.theme.mySkinColor
+import io.realm.kotlin.ext.toRealmList
 
 @Composable
 fun MainScreen(
     navController: NavController,
     email: String,
-    userViewModel: UserManipulationViewModel = hiltViewModel()
+    catViewModel: CatViewModel = hiltViewModel(),
+    trackedUserViewModel: TrackedUserViewModel = hiltViewModel()
 ){
+    catViewModel.getAllCatData(email)
+    val listCats  = catViewModel.allCats.value
+    Log.d("realmDB","catsListFirebase: $listCats")
+
+    trackedUserViewModel.mapperTrackedCats(listCats)
+    val newCatsList = trackedUserViewModel.trackedCatList
+    Log.d("realmDB","catsList: ${newCatsList}")
+
+    val trackedUser = TrackedUser().apply {
+        this.email = email
+        this.password = "Default_Password"
+        this.username = "Default_Username"
+        this.cats = newCatsList
+    }
+
+    Log.d("realmDB","trackedUser: ${trackedUser.email}")
+    trackedUserViewModel.addTrackedUser(trackedUser)
+
     Column {
         Header()
         MainMainScreen()

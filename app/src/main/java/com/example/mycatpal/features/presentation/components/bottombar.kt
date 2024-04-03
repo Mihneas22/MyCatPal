@@ -28,13 +28,15 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.mycatpal.features.presentation.viewmodels.AuthViewModel
+import com.example.mycatpal.features.presentation.viewmodels.TrackedUserViewModel
 import com.example.mycatpal.ui.theme.lighterPurple
 import com.example.mycatpal.ui.theme.mySkinColor
 
 @Composable
 fun BottomBar(
     navController: NavController,
-    authViewModel: AuthViewModel = hiltViewModel()
+    authViewModel: AuthViewModel = hiltViewModel(),
+    trackedUserViewModel: TrackedUserViewModel = hiltViewModel()
 ){
     Card(modifier = Modifier
         .fillMaxWidth()
@@ -123,6 +125,7 @@ fun BottomBar(
                     .fillMaxHeight()
                     .clickable {
                         authViewModel.logOut()
+                        trackedUserViewModel.deleteTrackedUser()
                         navController.navigate("LoginInScreen")
                     },
                 horizontalAlignment = Alignment.CenterHorizontally
