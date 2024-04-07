@@ -12,4 +12,6 @@ interface UserRepository {
     suspend fun getCatData(email: String,name: String): Cat?
 
     suspend fun getAllCats(email: String): List<Cat>
+
+    suspend fun deleteCat(email: String,nameCat: String): Resource<Boolean>
 }

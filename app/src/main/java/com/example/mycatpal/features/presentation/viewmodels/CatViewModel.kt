@@ -39,4 +39,9 @@ class CatViewModel @Inject constructor(
     =viewModelScope.launch {
         allCats.value = repo.getAllCats(email)
     }
+
+    fun deleteCat(email: String,nameCat: String)
+    =viewModelScope.launch {
+        repo.deleteCat(email, nameCat)
+    }
 }

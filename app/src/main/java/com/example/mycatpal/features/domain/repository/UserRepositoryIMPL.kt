@@ -76,4 +76,13 @@ class UserRepositoryIMPL @Inject constructor(
         }
         return catList.toList()
     }
+
+    override suspend fun deleteCat(email: String, nameCat: String): Resource<Boolean>
+    =try{
+        val db = fb.collection("users").document(email).collection("cats").document(nameCat)
+        db.delete()
+        Resource.Success(true)
+    }catch (ex: Exception){
+        Resource.Failure(ex)
+    }
 }

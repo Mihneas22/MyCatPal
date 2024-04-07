@@ -20,10 +20,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.mycatpal.features.domain.model.Cat
 import com.example.mycatpal.features.presentation.screens.Auth.LoginInScreen
 import com.example.mycatpal.features.presentation.screens.Auth.SignUpScreen
 import com.example.mycatpal.features.presentation.screens.MainScreen
 import com.example.mycatpal.features.presentation.screens.MyCats.AddCatScreen
+import com.example.mycatpal.features.presentation.screens.MyCats.CatScreen
 import com.example.mycatpal.features.presentation.screens.MyCats.MyCatsScreen
 import com.example.mycatpal.features.presentation.viewmodels.UserViewModel
 import com.example.mycatpal.ui.theme.MyCatPalTheme
@@ -76,8 +78,12 @@ class MainActivity : ComponentActivity() {
                     composable("AddCatScreen"){
                         AddCatScreen(email=email,navController = navController)
                     }
-                }
 
+                    composable("CatScreen/{cat}}"){backStackEntry ->
+                        val cat: Cat = backStackEntry.arguments?.get("cat") as Cat
+                        CatScreen(cat = cat, navController = navController)
+                    }
+                }
             }
         }
     }

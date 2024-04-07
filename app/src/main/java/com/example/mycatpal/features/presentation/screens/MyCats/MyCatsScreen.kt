@@ -38,6 +38,7 @@ import com.example.mycatpal.features.domain.model.Cat
 import com.example.mycatpal.features.presentation.components.BottomBar
 import com.example.mycatpal.features.presentation.components.CatButton
 import com.example.mycatpal.features.presentation.viewmodels.CatViewModel
+import com.example.mycatpal.features.presentation.viewmodels.UserManipulationViewModel
 import com.example.mycatpal.ui.theme.darkPurple
 import com.example.mycatpal.ui.theme.darkerRed
 import com.example.mycatpal.ui.theme.lighterPurple
@@ -48,7 +49,7 @@ import com.example.mycatpal.ui.theme.myYellow
 fun MyCatsScreen(
     email: String,
     navController: NavController,
-    catViewModel: CatViewModel = hiltViewModel()
+    catViewModel: CatViewModel = hiltViewModel(),
 ){
     catViewModel.getAllCatData(email)
     val listCats = catViewModel.allCats.value
@@ -107,7 +108,7 @@ fun Header(){
 @Composable
 fun MainCatsScreen(
     listCats: List<Cat>,
-    navController: NavController
+    navController: NavController,
 ){
     Card(modifier = Modifier
         .fillMaxWidth()
@@ -154,9 +155,12 @@ fun MainCatsScreen(
 
 @Composable
 fun CatCard(
-    cat: Cat
+    cat: Cat,
 ){
     Card(modifier = Modifier
+        .clickable {
+            
+        }
         .fillMaxWidth()
         .height(100.dp)
         .padding(top = 30.dp, start = 30.dp, end = 30.dp),

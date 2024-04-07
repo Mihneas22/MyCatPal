@@ -14,5 +14,4 @@ interface LocalUserRepository {
     suspend fun deleteTrackedUser(): Resource<Boolean>
 
     suspend fun mapperTrackedCats(list: List<Cat>): RealmList<TrackedCat>
-    
 }
